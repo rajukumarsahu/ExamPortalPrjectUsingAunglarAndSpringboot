@@ -100,7 +100,7 @@ import com.exam.portal.repositery.UserRepositery;
         		.csrf()
         		.disable() 
                 .authorizeHttpRequests()
-                .requestMatchers("/generatetoken")
+                .requestMatchers("/generatetoken","/user/save")
                 .permitAll()
                  
                 .requestMatchers(HttpMethod.OPTIONS)
