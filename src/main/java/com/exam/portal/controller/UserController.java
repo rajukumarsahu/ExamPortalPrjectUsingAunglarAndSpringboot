@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.exam.portal.helper.UserFoundException;
 import com.exam.portal.model.Roles;
 import com.exam.portal.model.UserModel;
 import com.exam.portal.model.UserRoles;
@@ -38,8 +42,8 @@ public class UserController {
 		user.setPassword(this.bCryptPasswordEncoder.encode(user.getPassword()));
 		
 		Roles roles=new Roles();
-		roles.setRoleid(45L);
-		roles.setRolename("Normal"); 
+		roles.setRoleid(44L);
+		roles.setRolename("Admin"); 
 		
 		UserRoles userroles=new UserRoles();
 		userroles.setRole(roles);
@@ -62,5 +66,11 @@ public class UserController {
 	@GetMapping("/UserDetails")
 	public List<UserModel> getallusers() {
 		return this.userservice.getallUser();
+	}
+	
+	@ExceptionHandler(UserFoundException.class)
+	public ResponseEntity<?>exceptionhandler(UserFoundException ex){
+		 //String errorMessage = "User Already there Try Another";
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex);
 	}
 }

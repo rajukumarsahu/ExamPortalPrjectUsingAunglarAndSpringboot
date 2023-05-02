@@ -102,7 +102,6 @@ import com.exam.portal.repositery.UserRepositery;
                 .authorizeHttpRequests()
                 .requestMatchers("/generatetoken","/user/save")
                 .permitAll()
-                 
                 .requestMatchers(HttpMethod.OPTIONS)
                 .permitAll()
                 .anyRequest()
