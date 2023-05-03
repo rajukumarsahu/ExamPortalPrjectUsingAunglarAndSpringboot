@@ -1,4 +1,4 @@
-package com.exam.portal.helper;
+    package com.exam.portal.helper;
 
 public class UserFoundException extends Exception {
 	public UserFoundException() {
